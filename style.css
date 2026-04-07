@@ -468,6 +468,46 @@ a:hover {
     font-weight: 500;
 }
 
+/* ===== Testimonial ===== */
+.testimonial-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 48px;
+    text-align: center;
+    position: relative;
+}
+
+.testimonial-quote {
+    position: relative;
+}
+
+.testimonial-quote svg {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--accent-2);
+}
+
+.testimonial-quote blockquote {
+    font-size: 1.3rem;
+    font-weight: 500;
+    line-height: 1.7;
+    color: var(--text-primary);
+    font-style: italic;
+    max-width: 700px;
+    margin: 0 auto;
+    padding-top: 24px;
+}
+
+.testimonial-author {
+    margin-top: 20px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--accent-2);
+}
+
 /* ===== Timeline / Experience ===== */
 .timeline {
     position: relative;
