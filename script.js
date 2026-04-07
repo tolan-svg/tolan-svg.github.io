@@ -38,7 +38,7 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-document.querySelectorAll('.timeline-item, .skill-card, .stat-card').forEach(el => {
+document.querySelectorAll('.timeline-item, .skill-card, .stat-card, .testimonial-card, .section-label, .section .about-content, .section .contact-wrapper').forEach(el => {
     observer.observe(el);
 });
 
