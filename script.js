@@ -46,21 +46,35 @@ document.querySelectorAll('.timeline-item, .skill-card, .stat-card').forEach(el 
 const contactForm = document.getElementById('contactForm');
 const formNote = document.getElementById('formNote');
 
-contactForm.addEventListener('submit', (e) => {
+contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const subject = document.getElementById('subject').value;
-    const message = document.getElementById('message').value;
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
 
-    const mailtoSubject = encodeURIComponent(subject || 'Portfolio Contact');
-    const mailtoBody = encodeURIComponent(`From: ${name}\nEmail: ${email}\n\n${message}`);
-    window.location.href = `mailto:tolantrudeau@gmail.com?subject=${mailtoSubject}&body=${mailtoBody}`;
+    try {
+        const response = await fetch(contactForm.action, {
+            method: 'POST',
+            body: new FormData(contactForm),
+            headers: { 'Accept': 'application/json' }
+        });
 
-    formNote.textContent = 'Opening your email client...';
-    formNote.style.color = '#b49ae0';
-    contactForm.reset();
+        if (response.ok) {
+            formNote.textContent = 'Message sent! I\'ll get back to you soon.';
+            formNote.style.color = '#b49ae0';
+            contactForm.reset();
+        } else {
+            formNote.textContent = 'Something went wrong. Try emailing me directly.';
+            formNote.style.color = '#ff6b6b';
+        }
+    } catch (err) {
+        formNote.textContent = 'Something went wrong. Try emailing me directly.';
+        formNote.style.color = '#ff6b6b';
+    }
+
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = 'Send Message <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
 
     setTimeout(() => {
         formNote.textContent = '';
